@@ -1,0 +1,3 @@
+gcc -O2 -o search main.c -lpthread
+
+./search file "main.c" /home/sarim/Documents/osProject

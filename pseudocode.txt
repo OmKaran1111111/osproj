@@ -1,0 +1,20 @@
+parse args
+init 4 mutexes
+build BMH table
+
+if text mode:
+    init 2 semaphores
+    launch 4 pool workers (they sleep on sem_wait)
+    crawl() — pushes file paths into queue, waking workers
+    set g_done = 1, post semaphore once to start shutdown cascade
+    join all workers
+
+if file mode:
+    crawl() — collects all file paths into g_file_list
+    divide list into 4 ranges
+    launch 4 file_match_worker threads
+    join all threads
+    free file list
+
+print summary
+destroy mutexes
